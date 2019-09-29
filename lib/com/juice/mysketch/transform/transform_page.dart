@@ -5,6 +5,7 @@ import 'package:my_sketch/com/juice/mysketch/components/expandable_controls.dart
 import 'package:my_sketch/com/juice/mysketch/sketching/sketching_controller.dart';
 import 'package:my_sketch/com/juice/mysketch/sketching/sketching_painter.dart';
 import 'package:my_sketch/com/juice/mysketch/transform/transformations_gesture_transformable.dart';
+import 'package:my_sketch/com/juice/mysketch/util/storage.dart';
 import 'package:provider/provider.dart';
 
 class TransformPage extends StatelessWidget {
@@ -50,7 +51,10 @@ class TransformPage extends StatelessWidget {
             // GestureTransformable.
             initialTranslation: Offset(size.width / 2, size.height / 2),
             //initialTranslation: Offset(0, 0),
-            onTapUp: _onTapUp,
+            onTapUp: (details){
+              print("onTapUp=${details.toString()}");
+              if (expandableController.expanded) expandableController.toggle();
+            },
             onScaleStart: (start) {
               print("onPanStart=${start.toString()}");
               if (expandableController.expanded) expandableController.toggle();
@@ -65,6 +69,7 @@ class TransformPage extends StatelessWidget {
               controller.endSketch();
             },
             size: size,
+            //storage: Storage(),
           );
         },
       ),
@@ -74,16 +79,9 @@ class TransformPage extends StatelessWidget {
         tooltip: 'Reset Transform',
         child: const Icon(Icons.home),
       ),
+
     );
 
-  }
-
-  void _onTapUp(TapUpDetails details) {
-    final Offset scenePoint = details.globalPosition;
-    /*final BoardPoint boardPoint = _board.pointToBoardPoint(scenePoint);
-    setState(() {
-      _board = _board.copyWithSelected(boardPoint);
-    });*/
   }
 
   Offset getPoint(BuildContext context, Offset position) {

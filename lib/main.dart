@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         home: ExpandableNotifier(
           child: TransformPage(),
         ),
-        theme: ThemeData.light(),//应用的背景
+        theme: ThemeData.dark(),//应用的背景
       ),
     );
   }

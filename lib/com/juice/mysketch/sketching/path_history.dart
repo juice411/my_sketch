@@ -51,6 +51,7 @@ class PathHistory {
 
   void draw(Canvas canvas, Size size) {
     //canvas.drawRect(Rect.fromLTWH(-size.width / 2, -size.height / 2, size.width, size.height), _backgroundPaint);
+    canvas.drawColor(_backgroundPaint.color, BlendMode.srcIn);
     for (MapEntry<Path, Paint> path in _paths) {
       if (path != null) canvas.drawPath(path.key, path.value);
     }

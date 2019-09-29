@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:my_sketch/com/juice/mysketch/util/storage.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector3;
 import 'transformations_inertial_motion.dart';
 
@@ -67,6 +68,7 @@ class GestureTransformable extends StatefulWidget {
     this.onScaleStart,
     this.onScaleUpdate,
     this.onScaleEnd,
+    //this.storage,
   }) : assert(child != null),
        assert(size != null),
        assert(minScale != null),
@@ -119,6 +121,8 @@ class GestureTransformable extends StatefulWidget {
   final Offset initialTranslation;
   final double initialScale;
   final double initialRotation;
+
+  //final Storage storage;
 
   @override _GestureTransformableState createState() => _GestureTransformableState();
 }
@@ -213,85 +217,97 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
   Widget build(BuildContext context) {
     // A GestureDetector allows the detection of panning and zooming gestures on
     // its child, which is the CustomPaint.
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque, // Necessary when translating off screen
-      onTapDown: widget.onTapDown == null ? null : (TapDownDetails details) {
-        widget.onTapDown(TapDownDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
+    return Listener(
+      onPointerDown: (details) {
+        print("onPointerDown=${details}");
+        gestureType = null;
       },
-      onTapUp: widget.onTapUp == null ? null : (TapUpDetails details) {
-        widget.onTapUp(TapUpDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
+      /*onPointerMove:(details){
+        print("onPointerMove=${details}");
       },
-      onTap: widget.onTap,
-      onTapCancel: widget.onTapCancel,
-      onDoubleTap: widget.onDoubleTap,
-      onLongPress: widget.onLongPress,
-      onLongPressUp: widget.onLongPressUp,
-      onVerticalDragDown: widget.onVerticalDragDown == null ? null : (DragDownDetails details) {
-        widget.onVerticalDragDown(DragDownDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
-      },
-      onVerticalDragStart: widget.onVerticalDragStart == null ? null : (DragStartDetails details) {
-        widget.onVerticalDragStart(DragStartDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
-      },
-      onVerticalDragUpdate: widget.onVerticalDragUpdate == null ? null : (DragUpdateDetails details) {
-        widget.onVerticalDragUpdate(DragUpdateDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
-      },
-      onVerticalDragEnd: widget.onVerticalDragEnd,
-      onVerticalDragCancel: widget.onVerticalDragCancel,
-      onHorizontalDragDown: widget.onHorizontalDragDown == null ? null : (DragDownDetails details) {
-        widget.onHorizontalDragDown(DragDownDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
-      },
-      onHorizontalDragStart: widget.onHorizontalDragStart == null ? null : (DragStartDetails details) {
-        widget.onHorizontalDragStart(DragStartDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
-      },
-      onHorizontalDragUpdate: widget.onHorizontalDragUpdate == null ? null : (DragUpdateDetails details) {
-        widget.onHorizontalDragUpdate(DragUpdateDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
-      },
-      onHorizontalDragEnd: widget.onHorizontalDragEnd,
-      onHorizontalDragCancel: widget.onHorizontalDragCancel,
-      onPanDown: widget.onPanDown == null ? null : (DragDownDetails details) {
-        widget.onPanDown(DragDownDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
-      },
-      onPanStart: widget.onPanStart == null ? null : (DragStartDetails details) {
-        widget.onPanStart(DragStartDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
-      },
-      onPanUpdate: widget.onPanUpdate == null ? null : (DragUpdateDetails details) {
-        widget.onPanUpdate(DragUpdateDetails(
-          globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
-        ));
-      },
-      onPanEnd: widget.onPanEnd,
-      onPanCancel: widget.onPanCancel,
-      onScaleEnd: _onScaleEnd,
-      onScaleStart: _onScaleStart,
-      onScaleUpdate: _onScaleUpdate,
-      child: ClipRect(
-        // The scene is panned/zoomed/rotated using this Transform widget.
-        child: Transform(
-          transform: _transform,
-          child: Container(
-            child: widget.child,
-            height: widget.size.height,
-            width: widget.size.width,
+      onPointerUp: (details) {
+        print("onPointerUp=${details}");
+      },*/
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque, // Necessary when translating off screen
+        onTapDown: widget.onTapDown == null ? null : (TapDownDetails details) {
+          widget.onTapDown(TapDownDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onTapUp: widget.onTapUp == null ? null : (TapUpDetails details) {
+          widget.onTapUp(TapUpDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onTap: widget.onTap,
+        onTapCancel: widget.onTapCancel,
+        onDoubleTap: widget.onDoubleTap,
+        onLongPress: widget.onLongPress,
+        onLongPressUp: widget.onLongPressUp,
+        onVerticalDragDown: widget.onVerticalDragDown == null ? null : (DragDownDetails details) {
+          widget.onVerticalDragDown(DragDownDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onVerticalDragStart: widget.onVerticalDragStart == null ? null : (DragStartDetails details) {
+          widget.onVerticalDragStart(DragStartDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onVerticalDragUpdate: widget.onVerticalDragUpdate == null ? null : (DragUpdateDetails details) {
+          widget.onVerticalDragUpdate(DragUpdateDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onVerticalDragEnd: widget.onVerticalDragEnd,
+        onVerticalDragCancel: widget.onVerticalDragCancel,
+        onHorizontalDragDown: widget.onHorizontalDragDown == null ? null : (DragDownDetails details) {
+          widget.onHorizontalDragDown(DragDownDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onHorizontalDragStart: widget.onHorizontalDragStart == null ? null : (DragStartDetails details) {
+          widget.onHorizontalDragStart(DragStartDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onHorizontalDragUpdate: widget.onHorizontalDragUpdate == null ? null : (DragUpdateDetails details) {
+          widget.onHorizontalDragUpdate(DragUpdateDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onHorizontalDragEnd: widget.onHorizontalDragEnd,
+        onHorizontalDragCancel: widget.onHorizontalDragCancel,
+        onPanDown: widget.onPanDown == null ? null : (DragDownDetails details) {
+          widget.onPanDown(DragDownDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onPanStart: widget.onPanStart == null ? null : (DragStartDetails details) {
+          widget.onPanStart(DragStartDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onPanUpdate: widget.onPanUpdate == null ? null : (DragUpdateDetails details) {
+          widget.onPanUpdate(DragUpdateDetails(
+            globalPosition: fromViewport(details.globalPosition - getOffset(context), _transform),
+          ));
+        },
+        onPanEnd: widget.onPanEnd,
+        onPanCancel: widget.onPanCancel,
+        onScaleEnd: _onScaleEnd,
+        onScaleStart: _onScaleStart,
+        onScaleUpdate: _onScaleUpdate,
+        child: ClipRect(
+          // The scene is panned/zoomed/rotated using this Transform widget.
+          child: Transform(
+            transform: _transform,
+            child: Container(
+              child: widget.child,
+              height: widget.size.height,
+              width: widget.size.width,
+            ),
           ),
         ),
       ),
@@ -401,6 +417,8 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
     }
 
     print("_onScaleStart=${details}");
+    //widget.storage.write("_onScaleStart=${details}");
+    //print(widget.storage.read());
 
     if (_controller.isAnimating) {
       _controller.stop();
@@ -412,13 +430,15 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
       _animateResetStop();
     }
 
-    gestureType = null;
+    //gestureType = null;
     setState(() {
       _scaleStart = _transform.getMaxScaleOnAxis();
       _translateFromScene = fromViewport(details.focalPoint, _transform);
       _rotationStart = _currentRotation;
     });
   }
+
+
 
   // Handle an update to an ongoing gesture of _GestureType.
   void _onScaleUpdate(ScaleUpdateDetails details) {
@@ -431,6 +451,8 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
       ));
     }*/
     print("_onScaleUpdate=${details}");
+    //widget.storage.write("_onScaleUpdate=${details}");
+    print("gestureType=${gestureType}");
 
     final Offset focalPointScene = fromViewport(
       details.focalPoint,
@@ -470,9 +492,7 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
         _transform = matrixTranslate(_transform, focalPointSceneNext - focalPointScene);
 
         //移动
-        final Offset translationChange = focalPointScene - _translateFromScene;
-        _transform = matrixTranslate(_transform, translationChange);
-        _translateFromScene = fromViewport(details.focalPoint, _transform);
+        translate(focalPointScene, details);
 
       } else if (gestureType == _GestureType.rotate && details.rotation != 0.0) {
         final double desiredRotation = _rotationStart + details.rotation;
@@ -480,12 +500,10 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
         _currentRotation = desiredRotation;
 
         //移动
-        final Offset translationChange = focalPointScene - _translateFromScene;
-        _transform = matrixTranslate(_transform, translationChange);
-        _translateFromScene = fromViewport(details.focalPoint, _transform);
+        translate(focalPointScene, details);
 
 
-      } else if (_translateFromScene != null && details.scale == 1.0) {
+      } else if (gestureType == _GestureType.translate&&_translateFromScene != null) {
         // Translate so that the same point in the scene is underneath the
         // focal point before and after the movement.
         /*final Offset translationChange = focalPointScene - _translateFromScene;
@@ -504,10 +522,17 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
     });
   }
 
+  void translate(Offset focalPointScene, ScaleUpdateDetails details) {
+    final Offset translationChange = focalPointScene - _translateFromScene;
+    _transform = matrixTranslate(_transform, translationChange);
+    _translateFromScene = fromViewport(details.focalPoint, _transform);
+  }
+
   // Handle the end of a gesture of _GestureType.
   void _onScaleEnd(ScaleEndDetails details) {
 
     print("_onScaleEnd=${details}");
+    //widget.storage.write("_onScaleEnd=${details}");
 
     if (widget.onScaleEnd != null) {
       widget.onScaleEnd(details);

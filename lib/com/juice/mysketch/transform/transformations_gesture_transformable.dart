@@ -546,8 +546,8 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
     _animation?.removeListener(_onAnimate);
     _controller.reset();
 
-    // If the scale ended with velocity, animate inertial movement
-    final double velocityTotal = details.velocity.pixelsPerSecond.dx.abs()
+    // If the scale ended with velocity, animate inertial movement,scala惯性动作
+    /*final double velocityTotal = details.velocity.pixelsPerSecond.dx.abs()
       + details.velocity.pixelsPerSecond.dy.abs();
     if (velocityTotal == 0) {
       return;
@@ -562,7 +562,7 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
     ).animate(_controller);
     _controller.duration = Duration(milliseconds: inertialMotion.duration.toInt());
     _animation.addListener(_onAnimate);
-    _controller.fling();
+    _controller.fling();*/
   }
 
   // Handle inertia drag animation.

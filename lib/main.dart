@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'com/juice/mysketch/controls.dart';
 import 'com/juice/mysketch/sketching/sketching_controller.dart';
-import 'com/juice/mysketch/transform/transform_page.dart';
+import 'com/juice/mysketch/transform/main_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,11 +22,11 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Sketch Board',
+        title: 'My Sketch',
         home: ExpandableNotifier(
-          child: TransformPage(),
+          child: MainPage(),
         ),
-        theme: ThemeData.dark(),//应用的背景
+        //theme: ThemeData.dark(),//应用的背景
       ),
     );
   }

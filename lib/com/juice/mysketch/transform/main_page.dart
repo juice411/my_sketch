@@ -5,6 +5,7 @@ import 'package:my_sketch/com/juice/mysketch/components/expandable_controls.dart
 import 'package:my_sketch/com/juice/mysketch/sketching/sketching_controller.dart';
 import 'package:my_sketch/com/juice/mysketch/sketching/sketching_painter.dart';
 import 'package:my_sketch/com/juice/mysketch/transform/transformations_gesture_transformable.dart';
+import 'package:my_sketch/com/juice/mysketch/util/color_dialog.dart';
 import 'package:my_sketch/com/juice/mysketch/util/storage.dart';
 import 'package:my_sketch/com/juice/mysketch/util/width_dialog.dart';
 import 'package:provider/provider.dart';
@@ -147,8 +148,7 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
                 mini: true,
                 child: Icon(Icons.lens),
                 onPressed: () async {
-                  final strokeWidth = controller.brushThickness;
-                  final newWidth = await showDialog(
+                  await showDialog(
                       context: context,
                       builder: (context) =>
                           WidthDialog());
@@ -173,18 +173,10 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
                 mini: true,
                 child: Icon(Icons.color_lens),
                 onPressed: () async {
-                  /*final newColor = await showDialog(
+                  await showDialog(
                     context: context,
                     builder: (context) => ColorDialog(),
                   ) as Color;
-                  if (newColor != null) {
-                    bloc.drawEvent.add(ColorChangeEvent((builder) {
-                      builder
-                        ..red = newColor.red
-                        ..green = newColor.green
-                        ..blue = newColor.blue;
-                    }));
-                  }*/
                 },
               ),
             ),

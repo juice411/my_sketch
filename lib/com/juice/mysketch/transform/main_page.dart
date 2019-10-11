@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:my_sketch/com/juice/mysketch/components/expandable_controls.dart';
 import 'package:my_sketch/com/juice/mysketch/sketching/sketching_controller.dart';
 import 'package:my_sketch/com/juice/mysketch/sketching/sketching_painter.dart';
@@ -82,20 +83,20 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
             initialTranslation: Offset(size.width / 2, size.height / 2),
             //initialTranslation: Offset(0, 0),
             onTapUp: (details){
-              print("onTapUp=${details.toString()}");
+              //print("onTapUp=${details.toString()}");
               if (expandableController.expanded) expandableController.toggle();
             },
             onScaleStart: (start) {
-              print("onPanStart=${start.toString()}");
+              //print("onPanStart=${start.toString()}");
               if (expandableController.expanded) expandableController.toggle();
               controller.startSketch(getPoint(context, start.focalPoint));
             },
             onScaleUpdate: (update){
-              print("onPanUpdate=${update.toString()}");
+              //print("onPanUpdate=${update.toString()}");
               controller.updateSketchPath(getPoint(context, update.focalPoint));
             } ,
             onScaleEnd: (end){
-              print("onPanEnd=${end.toString()}");
+              //print("onPanEnd=${end.toString()}");
               controller.endSketch();
             },
             size: size,
@@ -173,10 +174,31 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
                 mini: true,
                 child: Icon(Icons.color_lens),
                 onPressed: () async {
-                  await showDialog(
+                  /*await showDialog(
                     context: context,
                     builder: (context) => ColorDialog(),
-                  ) as Color;
+                  ) as Color;*/
+                  await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        titlePadding: const EdgeInsets.all(0.0),
+                        contentPadding: const EdgeInsets.all(0.0),
+                        content: SingleChildScrollView(
+                          child: ColorPicker(
+                            pickerColor: controller.brushColour,
+                            onColorChanged: (color) => controller.brushColour = color,
+                            colorPickerWidth: 300.0,
+                            pickerAreaHeightPercent: 0.8,
+                            enableAlpha: true,
+                            displayThumbColor: true,
+                            enableLabel: true,
+                            paletteType: PaletteType.hsv,
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
             ),

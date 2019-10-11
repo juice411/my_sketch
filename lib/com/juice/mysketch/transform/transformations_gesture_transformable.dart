@@ -219,7 +219,7 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
     // its child, which is the CustomPaint.
     return Listener(
       onPointerDown: (details) {
-        print("onPointerDown=${details}");
+        //print("onPointerDown=${details}");
         gestureType = null;
       },
       /*onPointerMove:(details){
@@ -416,7 +416,7 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
       ));
     }
 
-    print("_onScaleStart=${details}");
+    //print("_onScaleStart=${details}");
     //widget.storage.write("_onScaleStart=${details}");
     //print(widget.storage.read());
 
@@ -450,9 +450,9 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
         rotation: details.rotation,
       ));
     }*/
-    print("_onScaleUpdate=${details}");
+    //print("_onScaleUpdate=${details}");
     //widget.storage.write("_onScaleUpdate=${details}");
-    print("gestureType=${gestureType}");
+    //print("gestureType=${gestureType}");
 
     final Offset focalPointScene = fromViewport(
       details.focalPoint,
@@ -531,7 +531,7 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
   // Handle the end of a gesture of _GestureType.
   void _onScaleEnd(ScaleEndDetails details) {
 
-    print("_onScaleEnd=${details}");
+    //print("_onScaleEnd=${details}");
     //widget.storage.write("_onScaleEnd=${details}");
 
     if (widget.onScaleEnd != null) {

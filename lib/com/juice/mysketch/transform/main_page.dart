@@ -114,8 +114,8 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
         children: <Widget>[
           !_controller.isDismissed
               ? Container(
-            height: 70.0,
-            width: 56.0,
+            height: 45.0,
+            width: 28.0,
             alignment: FractionalOffset.topCenter,
             child: ScaleTransition(
               scale: CurvedAnimation(
@@ -133,10 +133,9 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
             ),
           )
               : null,
-          !_controller.isDismissed
-              ? Container(
-            height: 70.0,
-            width: 56.0,
+          Container(
+            height: 45.0,
+            width: 28.0,
             alignment: FractionalOffset.topCenter,
             child: ScaleTransition(
               scale: CurvedAnimation(
@@ -146,7 +145,7 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
               ),
               child: FloatingActionButton(
                 mini: true,
-                child: Icon(Icons.lens),
+                child: Icon(Icons.brush),
                 onPressed: () async {
                   await showDialog(
                       context: context,
@@ -156,12 +155,10 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
                 },
               ),
             ),
-          )
-              : null,
-          !_controller.isDismissed
-              ? Container(
-            height: 70.0,
-            width: 56.0,
+          ),
+          Container(
+            height: 45.0,
+            width: 28.0,
             alignment: FractionalOffset.topCenter,
             child: ScaleTransition(
               scale: CurvedAnimation(
@@ -201,12 +198,55 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
                 },
               ),
             ),
-          )
-              : null,
+          ),
           !_controller.isDismissed
               ? Container(
-            height: 70.0,
-            width: 56.0,
+            height: 45.0,
+            width: 28.0,
+            alignment: FractionalOffset.topCenter,
+            child: ScaleTransition(
+              scale: CurvedAnimation(
+                parent: _controller,
+                curve: Interval(0.0, 1.0 - 2 / 3 / 2.0,
+                    curve: Curves.easeOut),
+              ),
+              child: FloatingActionButton(
+                mini: true,
+                child: Icon(Icons.format_color_fill),
+                onPressed: () async {
+                  /*await showDialog(
+                    context: context,
+                    builder: (context) => ColorDialog(),
+                  ) as Color;*/
+                  await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        titlePadding: const EdgeInsets.all(0.0),
+                        contentPadding: const EdgeInsets.all(0.0),
+                        content: SingleChildScrollView(
+                          child: ColorPicker(
+                            pickerColor: controller.backgroundColour,
+                            onColorChanged: (color) => controller.backgroundColour = color,
+                            colorPickerWidth: 300.0,
+                            pickerAreaHeightPercent: 0.3,
+                            enableAlpha: false,
+                            displayThumbColor: true,
+                            enableLabel: true,
+                            paletteType: PaletteType.hsv,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          )
+              : null,
+          Container(
+            height: 45.0,
+            width: 28.0,
             alignment: FractionalOffset.topCenter,
             child: ScaleTransition(
               scale: CurvedAnimation(
@@ -222,12 +262,10 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
                 },
               ),
             ),
-          )
-              : null,
-          !_controller.isDismissed
-              ? Container(
-            height: 70.0,
-            width: 56.0,
+          ),
+          Container(
+            height: 45.0,
+            width: 28.0,
             alignment: FractionalOffset.topCenter,
             child: ScaleTransition(
               scale: CurvedAnimation(
@@ -243,12 +281,11 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
                 },
               ),
             ),
-          )
-              : null,
+          ),
           !_controller.isDismissed
               ? Container(
-            height: 70.0,
-            width: 56.0,
+            height: 45.0,
+            width: 28.0,
             alignment: FractionalOffset.topCenter,
             child: ScaleTransition(
               scale: CurvedAnimation(
@@ -267,14 +304,15 @@ class MainPageState extends State <MainPage> with TickerProviderStateMixin {
           )
               : null,
           FloatingActionButton(
+            mini: true,
             child: AnimatedBuilder(
               animation: _controller,
               builder: (BuildContext context, Widget child) {
                 return Transform(
                   transform:
-                  Matrix4.rotationZ(_controller.value * 0.5 * math.pi),
+                  Matrix4.rotationZ(_controller.value * 1.0 * math.pi),
                   alignment: FractionalOffset.center,
-                  child: Icon(Icons.brush),
+                  child: Icon(Icons.keyboard_arrow_down),
                 );
               },
             ),

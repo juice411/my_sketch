@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const defaultBrush = Colors.black;
 const defaultBackground = Colors.white;
-const defaultThickness = 1.5;
+const defaultThickness = 2.0;
 
 final List<Color> defaultColours = [
   Colors.red,

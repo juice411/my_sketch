@@ -1,16 +1,15 @@
+import 'dart:math' as math;
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:my_sketch/com/juice/mysketch/components/expandable_controls.dart';
 import 'package:my_sketch/com/juice/mysketch/sketching/sketching_controller.dart';
 import 'package:my_sketch/com/juice/mysketch/sketching/sketching_painter.dart';
 import 'package:my_sketch/com/juice/mysketch/transform/transformations_gesture_transformable.dart';
-import 'package:my_sketch/com/juice/mysketch/util/color_dialog.dart';
-import 'package:my_sketch/com/juice/mysketch/util/storage.dart';
+import 'package:my_sketch/com/juice/mysketch/util/flutter_colorpicker.dart';
+import 'package:my_sketch/com/juice/mysketch/util/hsv_picker.dart';
 import 'package:my_sketch/com/juice/mysketch/util/width_dialog.dart';
 import 'package:provider/provider.dart';
-import 'dart:math' as math;
 
 class MainPage extends StatefulWidget {
   @override

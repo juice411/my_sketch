@@ -152,6 +152,8 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
   double _currentRotation = 0.0;
   _GestureType gestureType;
 
+  Offset _onPanstartPoint;//用以临时存放scaleStart时产生的点
+
   // The transformation matrix that gives the initial home position.
   Matrix4 get _initialTransform {
     Matrix4 matrix = Matrix4.identity();
@@ -410,11 +412,13 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
 
   // Handle the start of a gesture of _GestureType.
   void _onScaleStart(ScaleStartDetails details) {
-    if (widget.onScaleStart != null) {
+    /*if (widget.onScaleStart != null) {
       widget.onScaleStart(ScaleStartDetails(
         focalPoint: fromViewport(details.focalPoint, _transform),
       ));
-    }
+    }*/
+
+    _onPanstartPoint=fromViewport(details.focalPoint, _transform);
 
     //print("_onScaleStart=${details}");
     //widget.storage.write("_onScaleStart=${details}");
@@ -512,13 +516,22 @@ class _GestureTransformableState extends State<GestureTransformable> with Ticker
 
         //绘制
         if (widget.onScaleUpdate != null) {
+
+          if (widget.onScaleStart != null&&_onPanstartPoint!=null) {
+            widget.onScaleStart(ScaleStartDetails(
+              focalPoint: _onPanstartPoint,
+            ));
+          }
+
           widget.onScaleUpdate(ScaleUpdateDetails(
             focalPoint: fromViewport(details.focalPoint, _transform),
             scale: details.scale,
             rotation: details.rotation,
           ));
         }
+
       }
+      _onPanstartPoint=null;//只在每次绘画之前执行一次
     });
   }
 
